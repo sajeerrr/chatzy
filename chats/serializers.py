@@ -9,3 +9,8 @@ class ChatRoomSerializer(serializers, ModelSerializer):
         queryset = User.objects.all(),
         many=True
     )
+
+    class Meta:
+        model = ChatRoom
+        field = ['id','name','participants','is_group','created_at']
+        read_only_fileds = ['created_at']
