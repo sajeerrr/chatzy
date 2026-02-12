@@ -14,3 +14,12 @@ class ChatRoomSerializer(serializers, ModelSerializer):
         model = ChatRoom
         field = ['id','name','participants','is_group','created_at']
         read_only_fileds = ['created_at']
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    sender = serializers.ReadOnlyField(source = 'sender.username')
+
+    class Meta:
+        model = message
+        field = ['id', 'room', 'sender', 'content', 'timestamp']
+        read_only_fields = ['timestamp']
