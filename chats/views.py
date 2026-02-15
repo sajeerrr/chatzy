@@ -4,4 +4,5 @@ from .serializers import ChatRoomSerializer, MessageSerializer
 from rest_framework import permissions, generics
 
 class CreateRoomView(generics, CreateAPIView):
+    queryset = chatroom.object.all()
     
