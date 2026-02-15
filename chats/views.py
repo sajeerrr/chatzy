@@ -7,3 +7,6 @@ class CreateRoomView(generics, CreateAPIView):
     queryset = chatroom.object.all()
     serializer_class = ChatRoomSerializer
     permission_classes = [permissons.IsAuthenticated]
+
+class ListUserRoomsView(generics, ListAPIView):
+    
