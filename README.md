@@ -1,4 +1,4 @@
-# Chatzy – Real-Time Chat Backend Platform
+# Chatzy – Real-Time Chat Platform
 
 Chatzy is a backend-focused real-time chat application built using **Django** and **Django REST Framework** with **JWT authentication** and **PostgreSQL** database.  
 
