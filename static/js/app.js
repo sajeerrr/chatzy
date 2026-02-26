@@ -84,6 +84,13 @@ function setupAuth() {
 }
 
 async function setupChat() {
+    if (!State.user) {
+        // Try to fetch user data if missing but token exists
+        console.error('User state missing, redirecting to auth');
+        localStorage.clear();
+        window.location.href = '/auth/';
+        return;
+    }
     document.querySelector('#user-name').innerText = State.user.username;
 
     // Load Rooms
