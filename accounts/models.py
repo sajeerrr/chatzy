@@ -5,7 +5,7 @@ User = settings.AUTH_USER_MODEL
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=255, blank=True)
-    participants = models.ManyToManyField(Users, related_name="rooms")
+    participants = models.ManyToManyField(User, related_name="rooms")
     is_group = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
