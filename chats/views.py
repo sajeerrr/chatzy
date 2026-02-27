@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
-from accounts.models import ChatRoom, Message
+from .models import ChatRoom, Message
 from .serializers import ChatRoomSerializer, MessageSerializer
 
 
@@ -8,6 +8,10 @@ class CreateRoomView(generics.CreateAPIView):
     queryset = ChatRoom.objects.all()
     serializer_class = ChatRoomSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        room = serializer.save()
+        room.participants.add(self.request.user)
 
 
 class ListUserRoomsView(generics.ListAPIView):

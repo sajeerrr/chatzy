@@ -2,8 +2,10 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
-
 from rest_framework.authtoken.views import ObtainAuthToken
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -30,3 +32,16 @@ class RegisterView(generics.CreateAPIView):
             "user": UserSerializer(user).data,
             "token": token.key
         })
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Allow searching by username
+        queryset = User.objects.all()
+        q = self.request.query_params.get('q')
+        if q:
+            queryset = queryset.filter(username__icontains=q)
+        return queryset.exclude(id=self.request.user.id) # Exclude self

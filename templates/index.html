@@ -28,8 +28,9 @@
 
     <main class="main-chat">
         <header
-            style="padding: 1.5rem; border-bottom: 1px solid var(--glass-border); background: var(--glass-bg); backdrop-filter: blur(8px);">
+            style="padding: 1.5rem; border-bottom: 1px solid var(--glass-border); background: var(--glass-bg); backdrop-filter: blur(8px); display: flex; justify-content: space-between; align-items: center;">
             <h3 id="current-room-name">Select a room to start chatting</h3>
+            <button class="btn btn-sm" onclick="showCreateRoomModal()">+ New Room</button>
         </header>
 
         <div id="messages-container" class="messages-container">
@@ -41,10 +42,38 @@
 
         <footer style="padding: 1.5rem; background: var(--glass-bg); border-top: 1px solid var(--glass-border);">
             <form id="send-form" style="display: flex; gap: 1rem;">
-                <input type="text" id="msg-input" placeholder="Type a message..." style="flex: 1;">
+                <input type="text" id="msg-input" placeholder="Type a message..." style="flex: 1;" autocomplete="off">
                 <button type="submit" class="btn">Send</button>
             </form>
         </footer>
     </main>
+</div>
+
+<!-- Room Creation Modal -->
+<div id="create-room-modal" class="modal-overlay" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Create New Room</h3>
+            <span class="close-modal" onclick="hideCreateRoomModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <label>Room Name</label>
+                <input type="text" id="modal-room-name" placeholder="E.g. Project X">
+            </div>
+            <div class="input-group">
+                <label>Invite Participants</label>
+                <input type="text" id="user-search" placeholder="Search users..." oninput="searchUsers(this.value)">
+                <div id="user-search-results" class="search-results"></div>
+            </div>
+            <div id="selected-participants" class="selected-tags">
+                <!-- Selected users will appear here -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="hideCreateRoomModal()">Cancel</button>
+            <button class="btn" onclick="submitCreateRoom()">Create Room</button>
+        </div>
+    </div>
 </div>
 {% endblock %}
